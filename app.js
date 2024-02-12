@@ -19,16 +19,16 @@ app.post('/authenticate', (req, res) => {
   const { username, password } = req.body;
 
   // Query the database for the user's credentials using the User model
-  User.findOne({ username, password }, (err, foundUser) => {
+  User.findOne({ name:username, password:password }, (err, foundUser) => {
     if (err || !foundUser) {
       return res.status(401).send('Unauthorized');
     }
 
     // Proceed with authentication logic based on user data
-    if (user.password === password) {
-        if (user.role === 'admin') {
+    if (foundUser.password === password) {
+        if (foundUser.role === 'admin') {
           res.redirect('/views/route1');
-        } else if (user.role === 'user') {
+        } else if (foundUser.role === 'user') {
           res.redirect('/views/route2');
         } else {
         res.status(401).send('Unauthorized');
@@ -42,9 +42,9 @@ app.get('/views/route1', auth.admin, (req, res) => {
   res.render('route1');
 });
 
-app.get('/views/route2', auth.user, (req, res) => {
-  res.render('route2');
-});
+// app.get('/views/route2', auth.user, (req, res) => {
+//   res.render('route2');
+// });
 
 const port = process.env.PORT || 3000;
 
