@@ -19,12 +19,13 @@ connection.connect((error)=>{
 // Define the User model functions
 const User = {
   findOne: (criteria, callback) => {
-    const query = 'SELECT * FROM users WHERE name = ? AND password = ?';
+    const query = 'SELECT * FROM login WHERE name = ? AND password = ?';
 console.log('Executing query:', query);
 console.log('Checking criteria:', criteria);
 
     connection.query(query, [criteria.name, criteria.password], (error, results) => {
       if (error) {
+        console.error('Error executing query:',error);
         return callback(error, null);
       }
       if (results.length > 0) {
@@ -37,6 +38,5 @@ console.log('Checking criteria:', criteria);
     });
   }
 };
-
 
 module.exports = User;

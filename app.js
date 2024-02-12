@@ -17,11 +17,11 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
   res.render('login');
 });
-
+// AUTH ROUTE*
 app.post('/authenticate', (req, res) => {
   const { username, password } = req.body;
 
-  // Query the database for the user's credentials using the User model
+  // USER ROUTE* Query the database for the user's credentials using the User model
   User.findOne({ name:username, password:password }, (err, foundUser) => {
     if (err || !foundUser) {
       return res.status(401).send('Unauthorized');
@@ -38,10 +38,10 @@ app.post('/authenticate', (req, res) => {
     }  
  
   
-  });
-});
+  }); // USER ROUTE***
+});// AUTH ROUTE***
 
-// Getting routes
+// Getting protected routes
 app.get('/views/route1', auth.admin, (req, res) => {
   res.render('route1');
 });
