@@ -33,7 +33,7 @@ console.log('Checking criteria:', criteria);
         return callback(null, results[0]);
       } else {
         console.log('User not found:');
-        return callback(null, null);@
+        return callback(null, null);
       }
     });
   }
