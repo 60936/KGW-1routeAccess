@@ -36,12 +36,11 @@ app.post('/authenticate', (req, res) => {
       res.status(401).send('Unauthorized');
     }
     }  
- 
-  
+   
   }); // USER ROUTE***
 });// AUTH ROUTE***
 
-// Getting protected routes
+//Getting protected routes
 app.get('/views/route1', auth.admin, (req, res) => {
   res.render('route1');
 });
