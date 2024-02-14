@@ -2,9 +2,9 @@ const auth = require('basic-auth');
 const mysql = require('mysql2');
 const User = require('./user'); // Import User model
 
-const auth = (req, res, next) => {
+const authenticate = (req, res, next) => {
   const user = req.session.user;
-
+  console.log(user.role);
   if (!user) {
     return res.redirect('/views/login');
   }
@@ -17,12 +17,12 @@ const auth = (req, res, next) => {
 };
 
 module.exports = {
-  admin: auth,
+  admin: authenticate,
   user: (req, res, next) => {
     const user = req.session.user;
 
     if (!user) {
-      return res.redirect('/views/login');
+      return res.redirect('/login');
     }
 
     if (user.role === 'user') {
