@@ -1,9 +1,7 @@
 const express = require('express');
-const mysql = require('mysql2'); // Import MySQL library
 const app = express();
 const auth = require('./auth');
 const routeRouter = require('./route');
-const User = require('./user'); // Import the User model
 
 // Mount the route router
 app.use('/views', routeRouter);
@@ -18,36 +16,32 @@ app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
   res.render('login');
 });
-// AUTH ROUTE*
+
+// AUTH ROUTE
 app.post('/authenticate', (req, res) => {
   const { username, password } = req.body;
-  console.log(User.role);
-  // USER ROUTE* Query the database for the user's credentials using the User model
-  User.findOne({ name:username, password:password }, (err, User) => {
-    if (err || !User) {
-      return res.status(401).send('Unauthorized');
-    }
- // Proceed with authentication logic based on user data
-    if (User.password === password) {
-      if (User.role === 'admin') {
-        res.redirect('/views/route1');
-      } else if (User.role === 'user') {
-        res.redirect('/views/route2');
-      } else {
-      res.status(401).send('Unauthorized');
-    }
-    }  
-   
-  }); // USER ROUTE***
-});// AUTH ROUTE***
 
-//Getting protected routes
-app.get('/views/route1', auth.admin, (req, res) => {
-  res.render('route1');
-});
+  // Call the findOne function from the User model in auth.js
+  auth.User.findOne({ name: username, password: password }, (error, user) => {
+    if (error) {
+      console.error('Error finding user:', error);
+      return res.status(500).send('Internal Server Error');
+    }
 
-app.get('/views/route2', auth.user, (req, res) => {
-  res.render('route2');
+    if (!user) {
+      return res.redirect('/login');
+    }
+
+    // Store user data in session
+
+    if (user.role === 'admin') {
+      return res.redirect('/route1');
+    } else if (user.role === 'user') {
+      return res.redirect('/route2');
+    } else {
+      return res.redirect('/login');
+    }
+  });
 });
 
 const port = process.env.PORT || 3000;
