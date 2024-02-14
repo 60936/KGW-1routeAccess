@@ -1,7 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2'); // Import MySQL library
 const app = express();
-const auth = require('./auth');
+const auth = require('./1auth');
 const routeRouter = require('./route');
 const User = require('./user'); // Import the User model
 

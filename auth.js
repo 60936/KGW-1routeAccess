@@ -2,43 +2,33 @@ const auth = require('basic-auth');
 const mysql = require('mysql2');
 const User = require('./user'); // Import User model
 
-
-const admin = (req, res, next) => {
-  const user = auth(req);
-
-  
-  // Query the database for the user based on the provided credentials
-  User.findOne({ name: user.name, password: user.pass }, (err, foundUser) => {
-    if (err || !foundUser) {
-      return res.status(401).send('Unauthorized');
-    }
-    if (foundUser.password === password) {
-      if (foundUser.role === 'admin') {
-        console.log(admin);;
-      } else {
-      res.status(401).send('Unauthorized');
-      }
-    }  
-    next(); // Proceed to the next middleware or route handler
-  });
-};
-
-const user = (req, res, next) => {
-  const user = auth(req);
+const auth = (req, res, next) => {
+  const user = req.session.user;
 
   if (!user) {
-    return res.status(401).send('Unauthorized');
+    return res.redirect('/views/login');
   }
-  if (foundUser.password === password) {
-    if (foundUser.role === 'user') {
-      console.log(user);;
-    } else {
-    res.status(401).send('Unauthorized');
-    }
-  }  
- 
 
-  next(); // Proceed to the next middleware or route handler
+  if (user.role === 'admin') {
+    return next();
+  }
+
+  return res.redirect('/');
 };
 
-module.exports = { admin, user };
+module.exports = {
+  admin: auth,
+  user: (req, res, next) => {
+    const user = req.session.user;
+
+    if (!user) {
+      return res.redirect('/views/login');
+    }
+
+    if (user.role === 'user') {
+      return next();
+    }
+
+    return res.redirect('/');
+  }
+};
