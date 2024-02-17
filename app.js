@@ -1,10 +1,6 @@
 const express = require('express');
 const app = express();
 const auth = require('./auth');
-const routeRouter = require('./route');
-
-// Mount the route router
-app.use('/views', routeRouter);
 
 // Middleware to parse incoming req bodies
 app.use(express.urlencoded({ extended: true }));
@@ -18,18 +14,14 @@ app.get('/', (req, res) => {
 });
 
 // AUTH ROUTE
-app.post('/authenticate', (req, res) => {
+app.post('/authenticate', (req, res, next) => {
   const { username, password } = req.body;
 
   // Call the findOne function from the User model in auth.js
   auth.User.findOne({ name: username, password: password }, (error, user) => {
     if (error) {
       console.error('Error finding user:', error);
-      return res.status(500).send('Internal Server Error');
-    }
-
-    if (!user) {
-      return res.redirect('/login');
+      return next(error);
     }
 
     // Store user data in session
@@ -39,13 +31,17 @@ app.post('/authenticate', (req, res) => {
     } else if (user.role === 'user') {
       return res.redirect('/route2');
     } else {
-      return res.redirect('/login');
+      return res.render('/login');
     }
   });
 });
 
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log('App listening on port: ' + port);
+app.listen(port, (error) => {
+  if (error) {
+    console.error('Error starting server:', error);
+  } else {
+    console.log('App listening on port: ' + port);
+  }
 });

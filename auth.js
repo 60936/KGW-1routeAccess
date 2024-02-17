@@ -32,7 +32,7 @@ const User = {
       }
       if (results.length > 0) {
         console.log('User found:', results[0]);
-        return callback(null, results[0]);
+        return callback(null, results[0]);// it means that the user was found, and the function returns the user object. If no results are found, the function returns null.
       } else {
         console.log('User not found:');
         return callback(null, null);
@@ -64,8 +64,8 @@ module.exports = {
     const user = req.session.user;
 
     if (!user) {
-      // return res.redirect('/');
-      return next();
+      return res.redirect('/');
+      // return next();
     }
 
     if (user.role === 'user') {
