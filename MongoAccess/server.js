@@ -18,4 +18,4 @@ process.on("unhandledRejection", err=>{
 app.use(express.json());
 
 // import route,js as middleware
-app.use("/api/auth", require("./Auth/route"))
+app.use("/api/auth", require("./auth/route"))
