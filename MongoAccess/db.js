@@ -8,4 +8,5 @@ const connectDB = async ()=>{
   })
   console.log("MongoDB Connected");
 }
-model.exports = connectDB
+  
+module.exports = connectDB
