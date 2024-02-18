@@ -26,12 +26,12 @@ app.post('/authenticate', (req, res, next) => {
 
     // Store user data in session
 
-    if (user.role === 'admin') {
+    if (user === 'admin') {
       return res.redirect('/route1');
-    } else if (user.role === 'user') {
+    } else if (user === 'user') {
       return res.redirect('/route2');
     } else {
-      return res.render('/login');
+      return res.redirect('/login');
     }
   });
 });
