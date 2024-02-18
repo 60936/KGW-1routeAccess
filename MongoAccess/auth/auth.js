@@ -1,7 +1,7 @@
 // CRUD operations>Create, Read(get), Update, Delete users.
 
 // import user model
-const User = require("../model/User");
+const User = require("../User");
 
 // create regiter fn
 exports.register = async (req, res, next) => {

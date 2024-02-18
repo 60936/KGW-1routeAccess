@@ -1,9 +1,11 @@
 const express = require('express');
-const PORT = 5000;
-const dbConnection = require('./sql');
+const app = express();
+const connectDB = require('./db');
 
 // Connecting the Database
 // No need to call a function; use the connection object directly
+const PORT = process.env.PORT || 5000;
+
 app.listen(PORT, ()=>console.log('listening on port',PORT));
 
 // Handling Error
@@ -13,7 +15,6 @@ process.on("unhandledRejection", err=>{
 })
 
 // create async express fn taking user's data & reg in DB
-const app = express();
 app.use(express.json());
 
 // import route,js as middleware

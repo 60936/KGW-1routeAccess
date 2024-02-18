@@ -1,6 +1,6 @@
 // user.js
-const mysql = require('mysql2');
-const UserSchema = new mysql.Schema({
+const Mongoose = require('mongoose');
+const UserSchema = new Mongoose.Schema({
   username: {
     type: String,
     unique: true,
@@ -18,7 +18,7 @@ const UserSchema = new mysql.Schema({
   },
 });
 
-const User = mysql.model('User', UserSchema);
+const User = Mongoose.model('User', UserSchema);
 
 module.exports = User;
 
