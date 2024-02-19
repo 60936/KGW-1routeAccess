@@ -12,13 +12,14 @@ const server = http.createServer(app);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'./public')));
 
-
+// on server start, GET index.html
 app.get('/',(req,res) => {
     res.sendFile(path.join(__dirname,'./public/index.html'));
 });
 
-// check email > create user > hash pw > store user
+// from index.html, POST register.html (because /register.html is a file stored in public folder)
 app.post('/register', async (req, res) => {
+// check email > create user > hash pw > store user
     try{
         let foundUser = users.find((data) => req.body.email === data.email);
         if (!foundUser) {
@@ -42,8 +43,9 @@ app.post('/register', async (req, res) => {
         res.send("Internal server error");
     }
 });
-// check email exists > check pw matched > login
+// from index.html, POST login.html (because /login.html is a file stored in public folder)
 app.post('/login', async (req, res) => {
+// check email exists > check pw matched > login
     try{
         let foundUser = users.find((data) => req.body.email === data.email);
         if (foundUser) {
