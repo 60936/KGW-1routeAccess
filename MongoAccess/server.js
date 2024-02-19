@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const connectDB = require('./db');
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser());
 // Connecting the Database
 // No need to call a function; use the connection object directly
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, ()=>console.log('listening on port',PORT));
 
