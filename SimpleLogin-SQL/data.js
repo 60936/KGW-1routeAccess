@@ -44,21 +44,21 @@ const User = {
   }
 };
 
-const authenticate = (req, res, next) => {
-  const user = req.session.user;
-  console.log(user.role);
+// const authenticate = (req, res, next) => {
+//   const user = req.session.user;
+//   console.log(user.role);
   
-  if (!user) {
-    // return res.redirect('/views/login');
-    return next();
-  }
+//   if (!user) {
+//     // return res.redirect('/views/login');
+//     return next();
+//   }
 
-  if (user.role === 'admin') {
-    return next();
-  }
+//   if (user.role === 'admin') {
+//     return next();
+//   }
 
-  // return res.redirect('/views/login');
-};
+//   // return res.redirect('/views/login');
+// };
   
 // exporting var userDB to be used in other files
 module.exports = { userDB };
