@@ -9,8 +9,11 @@ const users = require('./data').userDB;
 const app = express();
 const server = http.createServer(app);
 
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname,'./public')));
+
+
 
 // on server start, GET index.html
 app.get('/',(req,res) => {
@@ -56,6 +59,10 @@ app.post('/login', async (req, res) => {
             const passwordMatch = await bcrypt.compare(submittedPass, storedPass);
             if (passwordMatch) {
                 let usrname = foundUser.username;
+                // Using template engines
+                // app.set('view engine', 'ejs');
+
+                // res.send('./views/route1');
                 res.send(`<div align ='center'><h2>login successful</h2></div><br><br><br><div align ='center'><h3>Hello ${usrname}</h3></div><br><br><div align='center'><a href='./login.html'>logout</a></div>`);
             } else {
                 res.send("<div align ='center'><h2>Invalid email or password</h2></div><br><br><div align ='center'><a href='./login.html'>login again</a></div>");
