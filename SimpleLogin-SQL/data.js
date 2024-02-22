@@ -9,7 +9,7 @@ const userDB = require('mysql2');
 const connection = userDB.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'hochingD!3',
+  password: 'oops',
   database: 'users'
 });
 
