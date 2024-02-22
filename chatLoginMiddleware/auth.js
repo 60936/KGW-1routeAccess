@@ -4,6 +4,7 @@ const users = [
   // Add more users...
 ];
 
+// export 3 functions, isAuthenticated, authenticateUser, logoutUser*  
 module.exports = {
   isAuthenticated: (req, res, next) => {
     if (req.session.userId) {
@@ -30,3 +31,4 @@ module.exports = {
     });
   },
 };
+// export 3 functions, isAuthenticated, authenticateUser, logoutUser***  
