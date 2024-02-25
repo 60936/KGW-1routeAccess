@@ -1,0 +1,16 @@
+{
+  "name": "heynode-login",
+  "version": "1.0.0",
+  "description": "|_login\r    |__package.json\r    |__server.json\r    |__static\r      |__index.html\r      |__login.html",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2"
+  }
+}
